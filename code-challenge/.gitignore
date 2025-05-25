@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite database
+lib/db/database.db
+
+# Environment files and folders
+.env
+ENV/
+env/
+*.env
+
+# Editor settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Logs and debugging
+*.log
+
+
+# Type checker cache
+.mypy_cache/
+
+# Distribution files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+
+
