@@ -1,8 +1,8 @@
 import sqlite3
-from lib.db.connection import get_connection
+from lib.db.get_connection import get_connection
 
 class Article:
-    def __init__(self, id, title, content, author_id, magazine_id):
+    def __init__(self, id=None, title=None, content=None, author_id=None, magazine_id=None):
         self.id = id
         self.title = title
         self.content = content
@@ -19,7 +19,7 @@ class Article:
         return [cls(*row) for row in rows]
 
     def author(self):
-        from lib.models.author import Author  # ✅ Lazy import inside method
+        from lib.models.author import Author
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM authors WHERE id = ?", (self.author_id,))
@@ -28,10 +28,19 @@ class Article:
         return Author(*row) if row else None
 
     def magazine(self):
-        from lib.models.magazine import Magazine  # ✅ Lazy import inside method
+        from lib.models.magazine import Magazine
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM magazines WHERE id = ?", (self.magazine_id,))
         row = cursor.fetchone()
         conn.close()
         return Magazine(*row) if row else None
+
+    @classmethod
+    def find_by_title(cls, title):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM articles WHERE title = ?", (title,))
+        row = cursor.fetchone()
+        conn.close()
+        return cls(*row) if row else None

@@ -1,5 +1,5 @@
 import sqlite3
-from lib.db.connection import get_connection
+from code_challenge.lib.db.connection import get_connection
 
 def add_author_with_articles(author_name, articles_data):
     """
